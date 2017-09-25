@@ -1,0 +1,31 @@
+<html>
+ <body>
+
+  <form method="POST" action="/color"> 
+  Send MQTT Message(publish) : <select name="color" onchange="this.form.submit()">
+    <option>Choose a color...</option>
+    <option value="RED">RED</option>
+    <option value="GREEN">GREEN</option>
+    <option value="BLUE">BLUE</option>
+  </select>
+  </form>
+  
+<p>Edge Node CDS Sensor value (Subscribe) updated once every 1s :</p>
+ <b><font color="red"><p id="demo"></p></font></b>
+
+ <script>
+ var myVar = setInterval(myTimer, 1000);
+ function myTimer() {
+     var txtFile = new XMLHttpRequest();
+     txtFile.open("GET", "/brightness", true);
+     txtFile.send();
+     txtFile.onreadystatechange = function() {
+        if (txtFile.readyState == 4 && txtFile.status == 200)  
+          if (txtFile.responseText != "")
+             document.getElementById("demo").innerHTML = txtFile.responseText;
+     }
+ }
+ </script>
+ 
+ </body>
+</html>
